@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development | Nexus Digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            orange: '#FF8A00',
+                            card: '#1a1a1a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .glow-orange {
+            background: radial-gradient(circle, rgba(255, 138, 0, 0.15) 0%, rgba(10, 10, 10, 0) 70%);
+        }
+    </style>
+</head>
+<body class="bg-brand-black text-[#94a3b8] font-sans selection:bg-brand-orange selection:text-white">
+
+    <!-- Navigation -->
+    <nav x-data="{ mobileMenu: false, scrolled: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 20)"
+         class="fixed w-full z-50 transition-all duration-300 border-b border-white/5"
+         :class="scrolled ? 'bg-brand-black/80 backdrop-blur-md py-4' : 'bg-transparent py-6'">
+        <div class="max-w-7xl mx-auto px-6 md:px-20 flex justify-between items-center">
+            <a href="index.html" class="text-white font-heading font-black text-2xl tracking-tighter flex items-center gap-2">
+                <span class="text-brand-orange">N</span>EXUS
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 font-medium text-sm">
+                <a href="index.html" class="hover:text-brand-orange transition-colors">Home</a>
+                <a href="web-development.html" class="text-white hover:text-brand-orange transition-colors">Web Development</a>
+                <a href="google-ads.html" class="hover:text-brand-orange transition-colors">Google Ads</a>
+                <a href="#contact" class="bg-brand-orange text-white px-6 py-2.5 rounded-full font-bold hover:bg-orange-600 transition-all active:scale-95">Start Project</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white">
+                <i data-lucide="menu" x-show="!mobileMenu"></i>
+                <i data-lucide="x" x-show="mobileMenu"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-cloak x-transition class="md:hidden absolute top-full left-0 w-full bg-brand-card border-b border-white/5 p-6 flex flex-col gap-4">
+            <a href="index.html" class="text-white text-lg font-bold">Home</a>
+            <a href="web-development.html" class="text-white text-lg font-bold">Web Development</a>
+            <a href="google-ads.html" class="text-white text-lg font-bold">Google Ads</a>
+            <a href="#contact" class="bg-brand-orange text-white px-6 py-4 rounded-full font-bold text-center">Start Project</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-48 pb-32 px-6 md:px-20 overflow-hidden">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] glow-orange -mr-64 -mt-64"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="max-w-3xl">
+                <h1 class="reveal text-5xl md:text-7xl font-heading font-black text-white tracking-tighter leading-none mb-8">
+                    High-Performance<br><span class="text-brand-orange">Web Solutions.</span>
+                </h1>
+                <p class="reveal text-lg md:text-xl mb-10 leading-relaxed">
+                    We engineer enterprise-grade web applications and high-conversion landing pages that dominate the competition.
+                </p>
+                <div class="reveal">
+                    <a href="#contact" class="inline-block bg-brand-orange text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-orange-600 transition-all">Request Technical Proposal</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tech Stack Section -->
+    <section class="py-24 px-6 md:px-20 bg-brand-card/30">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="reveal text-sm font-bold uppercase tracking-[0.3em] text-brand-orange mb-12">Modern Tech Stack</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+                <div class="reveal">
+                    <h3 class="text-3xl font-heading font-black text-white mb-6 uppercase tracking-tighter">Engineered for speed</h3>
+                    <p class="text-lg leading-relaxed mb-8">We utilize the latest in frontend technology to ensure your site loads in milliseconds, not seconds. Our architecture is built to handle massive scale while maintaining sub-second response times.</p>
+                    <ul class="space-y-4 text-white font-bold">
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="text-brand-orange"></i> HTML5 Semantic Architecture</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="text-brand-orange"></i> Tailwind CSS Performance</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="text-brand-orange"></i> Lightweight Alpine.js Interactivity</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="text-brand-orange"></i> Optimized Asset Delivery</li>
+                    </ul>
+                </div>
+                <div class="reveal space-y-8">
+                    <div class="p-8 bg-brand-card rounded-3xl border border-white/5">
+                        <h4 class="text-white font-heading font-black text-xl mb-2 uppercase tracking-tighter">Mobile-First Design</h4>
+                        <p>Responsive architecture that delivers a premium experience on every device, from mobile to ultra-wide displays.</p>
+                    </div>
+                    <div class="p-8 bg-brand-card rounded-3xl border border-white/5">
+                        <h4 class="text-white font-heading font-black text-xl mb-2 uppercase tracking-tighter">SEO Optimized</h4>
+                        <p>Perfectly indexed content and schema markup to ensure your site ranks where it belongs: at the top.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-32 px-6 md:px-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-24">
+                <h2 class="reveal text-4xl md:text-5xl font-heading font-black text-white tracking-tighter uppercase">Our Process</h2>
+                <div class="w-20 h-1 bg-brand-orange mx-auto mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="reveal group">
+                    <div class="text-5xl font-heading font-black text-white/10 group-hover:text-brand-orange/20 transition-colors mb-4">01</div>
+                    <h3 class="text-xl font-heading font-black text-white mb-4 uppercase tracking-tighter">Discovery</h3>
+                    <p>In-depth analysis of your business goals and technical requirements.</p>
+                    <div class="mt-6 border-t border-brand-orange/20 w-12 transition-all group-hover:w-full"></div>
+                </div>
+                <div class="reveal group" style="transition-delay: 100ms">
+                    <div class="text-5xl font-heading font-black text-white/10 group-hover:text-brand-orange/20 transition-colors mb-4">02</div>
+                    <h3 class="text-xl font-heading font-black text-white mb-4 uppercase tracking-tighter">Design</h3>
+                    <p>High-fidelity UI/UX design focused on conversion and brand authority.</p>
+                    <div class="mt-6 border-t border-brand-orange/20 w-12 transition-all group-hover:w-full"></div>
+                </div>
+                <div class="reveal group" style="transition-delay: 200ms">
+                    <div class="text-5xl font-heading font-black text-white/10 group-hover:text-brand-orange/20 transition-colors mb-4">03</div>
+                    <h3 class="text-xl font-heading font-black text-white mb-4 uppercase tracking-tighter">Build</h3>
+                    <p>Clean, scalable code developed by our senior engineering team.</p>
+                    <div class="mt-6 border-t border-brand-orange/20 w-12 transition-all group-hover:w-full"></div>
+                </div>
+                <div class="reveal group" style="transition-delay: 300ms">
+                    <div class="text-5xl font-heading font-black text-white/10 group-hover:text-brand-orange/20 transition-colors mb-4">04</div>
+                    <h3 class="text-xl font-heading font-black text-white mb-4 uppercase tracking-tighter">Launch</h3>
+                    <p>Rigorous testing and deployment with post-launch optimization.</p>
+                    <div class="mt-6 border-t border-brand-orange/20 w-12 transition-all group-hover:w-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="py-32 px-6 md:px-20 bg-brand-card">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl md:text-6xl font-heading font-black text-white tracking-tighter mb-10 text-center uppercase">Ready to scale?</h2>
+            <p class="text-lg mb-12 max-w-xl mx-auto">Limited spots available for Q4. Book your technical audit today.</p>
+            <a href="mailto:hello@nexusdigital.com" class="inline-block bg-brand-orange text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-orange-600 transition-all shadow-2xl shadow-brand-orange/20">Request Technical Proposal</a>
+
+            <div class="mt-24 border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center gap-8 text-sm">
+                <div class="text-white font-heading font-black text-xl tracking-tighter">
+                    <span class="text-brand-orange">N</span>EXUS
+                </div>
+                <div class="flex gap-8">
+                    <a href="#" class="hover:text-white transition-colors">Twitter</a>
+                    <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+                    <a href="#" class="hover:text-white transition-colors">Clutch</a>
+                </div>
+                <p>&copy; 2024 Nexus Digital Agency.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Reveal Animation
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
