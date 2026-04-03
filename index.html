@@ -3,528 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Digital | Premium Web Design & Digital Growth</title>
-    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <title>Nexus Digital | Digital Growth. Engineered.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Tailwind CSS CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Alpine.js Collapse Plugin -->
-    <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
-    <!-- Alpine.js CDN -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            orange: '#FF8A00',
+                            card: '#1a1a1a',
+                        }
+                    },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        heading: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                    colors: {
-                        slate: {
-                            50: '#f8fafc',
-                            900: '#0f172a',
-                        },
-                        blue: {
-                            600: '#2563eb',
-                        },
-                        indigo: {
-                            600: '#4f46e5',
-                        }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s ease-out forwards',
-                        'slide-up': 'slideUp 0.5s ease-out forwards',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideUp: {
-                            '0%': { transform: 'translateY(20px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        }
+                        heading: ['Outfit', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
-
     <style>
-        body {
-            background-color: #f8fafc; /* bg-slate-50/50 approx */
-            color: #0f172a; /* text-slate-900 */
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #0f172a;
-            letter-spacing: -0.02em;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(15, 23, 42, 0.05);
-        }
-
-        .noise {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            pointer-events: none;
-            z-index: 50;
-            opacity: 0.02;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
         [x-cloak] { display: none !important; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .glow-orange {
+            background: radial-gradient(circle, rgba(255, 138, 0, 0.15) 0%, rgba(10, 10, 10, 0) 70%);
+        }
     </style>
 </head>
-<body x-data="{
-    mobileMenuOpen: false,
-    scrolled: false,
-    activeTab: 'web'
-}" @scroll.window="scrolled = (window.pageYOffset > 20)">
+<body class="bg-brand-black text-[#94a3b8] font-sans selection:bg-brand-orange selection:text-white">
 
-    <div class="noise"></div>
-
-    <!-- Navbar -->
-    <nav
-        :class="{ 'glass py-3 shadow-sm': scrolled, 'py-5 bg-transparent': !scrolled }"
-        class="fixed top-0 left-0 w-full z-40 transition-all duration-300 px-6 md:px-12"
-    >
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="#" class="flex items-center space-x-2">
-                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
-                    <span class="text-white font-bold text-2xl font-heading">N</span>
-                </div>
-                <span class="text-slate-900 font-heading font-extrabold text-2xl tracking-tighter">Nexus Digital</span>
+    <!-- Navigation -->
+    <nav x-data="{ mobileMenu: false, scrolled: false }"
+         @scroll.window="scrolled = (window.pageYOffset > 20)"
+         class="fixed w-full z-50 transition-all duration-300 border-b border-white/5"
+         :class="scrolled ? 'bg-brand-black/80 backdrop-blur-md py-4' : 'bg-transparent py-6'">
+        <div class="max-w-7xl mx-auto px-6 md:px-20 flex justify-between items-center">
+            <a href="index.html" class="text-white font-heading font-black text-2xl tracking-tighter flex items-center gap-2">
+                <span class="text-brand-orange">N</span>EXUS
             </a>
 
             <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-10 text-sm font-semibold text-slate-600">
-                <a href="#services" class="hover:text-blue-600 transition-colors">Services</a>
-                <a href="#portfolio" class="hover:text-blue-600 transition-colors">Portfolio</a>
-                <a href="#process" class="hover:text-blue-600 transition-colors">Process</a>
-                <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 shadow-md shadow-blue-100">
-                    Get Started
-                </a>
+            <div class="hidden md:flex items-center gap-8 font-medium text-sm">
+                <a href="index.html" class="text-white hover:text-brand-orange transition-colors">Home</a>
+                <a href="web-development.html" class="hover:text-brand-orange transition-colors">Web Development</a>
+                <a href="google-ads.html" class="hover:text-brand-orange transition-colors">Google Ads</a>
+                <a href="#contact" class="bg-brand-orange text-white px-6 py-2.5 rounded-full font-bold hover:bg-orange-600 transition-all active:scale-95">Start Project</a>
             </div>
 
             <!-- Mobile Toggle -->
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-slate-900 focus:outline-none">
-                <i data-lucide="menu" x-show="!mobileMenuOpen" class="w-6 h-6"></i>
-                <i data-lucide="x" x-show="mobileMenuOpen" class="w-6 h-6"></i>
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white">
+                <i data-lucide="menu" x-show="!mobileMenu"></i>
+                <i data-lucide="x" x-show="mobileMenu"></i>
             </button>
         </div>
 
         <!-- Mobile Menu -->
-        <div
-            x-show="mobileMenuOpen"
-            x-cloak
-            x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0 -translate-y-4"
-            x-transition:enter-end="opacity-100 translate-y-0"
-            class="md:hidden absolute top-full left-0 w-full glass p-8 flex flex-col space-y-6 shadow-2xl border-t border-slate-100"
-        >
-            <a @click="mobileMenuOpen = false" href="#services" class="text-lg font-semibold text-slate-900">Services</a>
-            <a @click="mobileMenuOpen = false" href="#portfolio" class="text-lg font-semibold text-slate-900">Portfolio</a>
-            <a @click="mobileMenuOpen = false" href="#process" class="text-lg font-semibold text-slate-900">Process</a>
-            <a @click="mobileMenuOpen = false" href="#contact" class="bg-blue-600 text-white px-5 py-4 rounded-2xl text-center font-bold text-lg shadow-lg transition-all duration-300 hover:bg-blue-700 active:scale-95">Get Started</a>
+        <div x-show="mobileMenu" x-cloak x-transition class="md:hidden absolute top-full left-0 w-full bg-brand-card border-b border-white/5 p-6 flex flex-col gap-4">
+            <a href="index.html" class="text-white text-lg font-bold">Home</a>
+            <a href="web-development.html" class="text-white text-lg font-bold">Web Development</a>
+            <a href="google-ads.html" class="text-white text-lg font-bold">Google Ads</a>
+            <a href="#contact" class="bg-brand-orange text-white px-6 py-4 rounded-full font-bold text-center">Start Project</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative pt-32 pb-24 md:pt-60 md:pb-48 px-6 overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl">
-            <div class="absolute top-20 left-1/4 w-72 h-72 bg-blue-100/50 rounded-full blur-[120px]"></div>
-            <div class="absolute top-40 right-1/4 w-72 h-72 bg-indigo-100/50 rounded-full blur-[120px]"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="flex flex-col items-center text-center space-y-10">
-                <div class="reveal inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-slate-200 bg-white/50 text-blue-600 text-xs font-bold tracking-wider uppercase">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                    </span>
-                    <span>Scaling brands with precision</span>
-                </div>
-
-                <h1 class="reveal text-6xl md:text-[5.5rem] font-heading font-extrabold leading-[1.05] tracking-tighter text-slate-900 max-w-4xl mx-auto">
-                    The Modern Agency for <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">Digital Growth.</span>
-                </h1>
-
-                <p class="reveal max-w-2xl text-slate-600 text-lg md:text-xl leading-relaxed font-medium">
-                    We bridge the gap between high-end aesthetics and high-performance results. Built for companies that demand excellence.
-                </p>
-
-                <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-5 pt-4 w-full">
-                    <a href="#contact" class="w-full sm:w-auto bg-blue-600 text-white px-10 py-5 rounded-full font-bold text-lg transition-all duration-300 hover:bg-blue-700 hover:scale-105 active:scale-95 shadow-xl shadow-blue-200">
-                        Start a Project
-                    </a>
-                    <a href="#portfolio" class="w-full sm:w-auto px-10 py-5 rounded-full font-bold text-lg text-slate-900 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all duration-300">
-                        View Work
-                    </a>
-                </div>
+    <header class="relative pt-48 pb-32 px-6 md:px-20 overflow-hidden">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] glow-orange -mr-64 -mt-64"></div>
+        <div class="max-w-7xl mx-auto relative z-10 text-center">
+            <h1 class="reveal text-5xl md:text-8xl font-heading font-black text-white tracking-tighter leading-none mb-8">
+                Digital Growth.<br><span class="text-brand-orange">Engineered.</span>
+            </h1>
+            <p class="reveal text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+                Precision-crafted web ecosystems and high-ROI Google Ads management for brands that demand excellence.
+            </p>
+            <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#contact" class="bg-brand-orange text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-orange-600 transition-all w-full sm:w-auto">Start Your Project</a>
+                <a href="#services" class="border border-white/20 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white/5 transition-all w-full sm:w-auto">Explore Services</a>
             </div>
         </div>
     </header>
 
-    <!-- Services Section with Interactive Tabs -->
-    <section id="services" class="py-24 px-6 bg-slate-50/50">
+    <!-- Services Grid -->
+    <section id="services" class="py-24 px-6 md:px-20 relative">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-6 tracking-tight">Expertise that drives <span class="text-blue-600">revenue.</span></h2>
-                <p class="text-slate-600 text-lg max-w-2xl mx-auto font-medium">Select a service to see how we help our partners win in the digital landscape.</p>
-            </div>
+            <div class="border-t border-brand-orange/20 mb-16"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Web Dev -->
+                <a href="web-development.html" class="reveal group bg-brand-card p-10 rounded-3xl border border-white/5 hover:border-brand-orange/30 transition-all duration-500">
+                    <div class="w-12 h-12 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="code-2" class="text-brand-orange w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-black text-white mb-4 uppercase tracking-tighter">Web Development</h3>
+                    <p class="mb-8">Scalable, high-performance web solutions built with modern tech stacks.</p>
+                    <div class="flex items-center text-white font-bold gap-2 text-sm uppercase tracking-widest">
+                        View Service <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </div>
+                </a>
 
-            <!-- Tabs -->
-            <div class="reveal flex flex-wrap justify-center gap-4 mb-12">
-                <button
-                    @click="activeTab = 'web'"
-                    :class="activeTab === 'web' ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-200'"
-                    class="px-8 py-3 rounded-full font-bold transition-all duration-300"
-                >
-                    Web Development
-                </button>
-                <button
-                    @click="activeTab = 'landing'"
-                    :class="activeTab === 'landing' ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-200'"
-                    class="px-8 py-3 rounded-full font-bold transition-all duration-300"
-                >
-                    Landing Pages
-                </button>
-                <button
-                    @click="activeTab = 'ads'"
-                    :class="activeTab === 'ads' ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-200'"
-                    class="px-8 py-3 rounded-full font-bold transition-all duration-300"
-                >
-                    Google Ads
-                </button>
-            </div>
+                <!-- Google Ads -->
+                <a href="google-ads.html" class="reveal group bg-brand-card p-10 rounded-3xl border border-white/5 hover:border-brand-orange/30 transition-all duration-500" style="transition-delay: 100ms">
+                    <div class="w-12 h-12 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="trending-up" class="text-brand-orange w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-black text-white mb-4 uppercase tracking-tighter">Google Ads</h3>
+                    <p class="mb-8">Ruthless focus on ROI through data-driven search marketing campaigns.</p>
+                    <div class="flex items-center text-white font-bold gap-2 text-sm uppercase tracking-widest">
+                        View Service <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </div>
+                </a>
 
-            <!-- Tab Content -->
-            <div class="reveal min-h-[400px]">
-                <!-- Web Dev Content -->
-                <div x-show="activeTab === 'web'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-6">
-                        <h3 class="text-3xl font-heading font-bold">Custom Web Ecosystems</h3>
-                        <p class="text-slate-600 text-lg leading-relaxed">We don't just build websites; we build scalable digital products. Using the latest technologies, we ensure your site is fast, secure, and ready for growth.</p>
-                        <ul class="space-y-3 text-slate-600 font-medium">
-                            <li class="flex items-center space-x-3"><i data-lucide="check-circle-2" class="text-blue-600 w-5 h-5"></i><span>React & Next.js Performance</span></li>
-                            <li class="flex items-center space-x-3"><i data-lucide="check-circle-2" class="text-blue-600 w-5 h-5"></i><span>Headless CMS Integration</span></li>
-                            <li class="flex items-center space-x-3"><i data-lucide="check-circle-2" class="text-blue-600 w-5 h-5"></i><span>Custom API Solutions</span></li>
-                        </ul>
+                <!-- Landing Pages -->
+                <a href="web-development.html" class="reveal group bg-brand-card p-10 rounded-3xl border border-white/5 hover:border-brand-orange/30 transition-all duration-500" style="transition-delay: 200ms">
+                    <div class="w-12 h-12 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="layout" class="text-brand-orange w-6 h-6"></i>
                     </div>
-                    <div class="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-xl shadow-slate-100">
-                        <div class="aspect-video bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100">
-                            <i data-lucide="code-2" class="w-20 h-20 text-blue-600 opacity-20"></i>
-                        </div>
+                    <h3 class="text-2xl font-heading font-black text-white mb-4 uppercase tracking-tighter">Landing Pages</h3>
+                    <p class="mb-8">High-conversion sales pages that turn traffic into measurable revenue.</p>
+                    <div class="flex items-center text-white font-bold gap-2 text-sm uppercase tracking-widest">
+                        View Service <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </div>
-                </div>
-
-                <!-- Landing Pages Content -->
-                <div x-show="activeTab === 'landing'" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-6">
-                        <h3 class="text-3xl font-heading font-bold">High-Conversion Sales Pages</h3>
-                        <p class="text-slate-600 text-lg leading-relaxed">Landing pages designed with one goal: conversion. We combine psychological triggers with premium design to turn visitors into customers.</p>
-                        <ul class="space-y-3 text-slate-600 font-medium">
-                            <li class="flex items-center space-x-3"><i data-lucide="check-circle-2" class="text-blue-600 w-5 h-5"></i><span>A/B Testing Frameworks</span></li>
-                            <li class="flex items-center space-x-3"><i data-lucide="check-circle-2" class="text-blue-600 w-5 h-5"></i><span>Psychology-Driven UX</span></li>
-                            <li class="flex items-center space-x-3"><i data-lucide="check-circle-2" class="text-blue-600 w-5 h-5"></i><span>Optimized for Mobile Sales</span></li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-xl shadow-slate-100">
-                        <div class="aspect-video bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100">
-                            <i data-lucide="layout" class="w-20 h-20 text-blue-600 opacity-20"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Google Ads Content -->
-                <div x-show="activeTab === 'ads'" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-6">
-                        <h3 class="text-3xl font-heading font-bold">ROI-Focused Search Marketing</h3>
-                        <p class="text-slate-600 text-lg leading-relaxed">Stop wasting budget on vanity metrics. We manage Google Ads with a ruthless focus on your bottom line and ROAS.</p>
-                        <ul class="space-y-3 text-slate-600 font-medium">
-                            <li class="flex items-center space-x-3"><i data-lucide="check-circle-2" class="text-blue-600 w-5 h-5"></i><span>Precision Keyword Targeting</span></li>
-                            <li class="flex items-center space-x-3"><i data-lucide="check-circle-2" class="text-blue-600 w-5 h-5"></i><span>Data-Driven Bid Management</span></li>
-                            <li class="flex items-center space-x-3"><i data-lucide="check-circle-2" class="text-blue-600 w-5 h-5"></i><span>Transparent ROI Reporting</span></li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-xl shadow-slate-100">
-                        <div class="aspect-video bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100">
-                            <i data-lucide="trending-up" class="w-20 h-20 text-blue-600 opacity-20"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Cards Section -->
-    <section id="portfolio" class="py-24 px-6 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 space-y-6 md:space-y-0 reveal">
-                <div class="max-w-xl">
-                    <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-6 tracking-tight">Recent work.</h2>
-                    <p class="text-slate-600 text-lg font-medium">A glimpse into the digital experiences we've crafted for ambitious brands.</p>
-                </div>
-                <a href="#" class="text-blue-600 font-bold hover:text-blue-700 flex items-center space-x-2 border-b-2 border-blue-100 pb-1 group transition-all duration-300">
-                    <span>View All Projects</span>
-                    <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="reveal group bg-slate-50 rounded-[2.5rem] p-8 border border-slate-100 transition-all duration-500 hover:shadow-2xl hover:shadow-slate-200 hover:-translate-y-2">
-                    <div class="aspect-square bg-white rounded-2xl mb-8 flex items-center justify-center border border-slate-100 overflow-hidden">
-                        <div class="w-full h-full bg-gradient-to-br from-blue-50 to-indigo-50 group-hover:scale-110 transition-transform duration-700"></div>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold mb-3">Luxe Real Estate</h3>
-                    <p class="text-slate-600 mb-6 font-medium">A high-end property portal with seamless search and virtual tours.</p>
-                    <a href="#" class="inline-flex items-center space-x-2 text-blue-600 font-bold group/link">
-                        <span>Learn More</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover/link:translate-x-1 transition-transform"></i>
-                    </a>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="reveal group bg-slate-50 rounded-[2.5rem] p-8 border border-slate-100 transition-all duration-500 hover:shadow-2xl hover:shadow-slate-200 hover:-translate-y-2" style="transition-delay: 100ms;">
-                    <div class="aspect-square bg-white rounded-2xl mb-8 flex items-center justify-center border border-slate-100 overflow-hidden">
-                        <div class="w-full h-full bg-gradient-to-br from-emerald-50 to-teal-50 group-hover:scale-110 transition-transform duration-700"></div>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold mb-3">GreenTech SaaS</h3>
-                    <p class="text-slate-600 mb-6 font-medium">Complex data visualization for a leading sustainability platform.</p>
-                    <a href="#" class="inline-flex items-center space-x-2 text-blue-600 font-bold group/link">
-                        <span>Learn More</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover/link:translate-x-1 transition-transform"></i>
-                    </a>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="reveal group bg-slate-50 rounded-[2.5rem] p-8 border border-slate-100 transition-all duration-500 hover:shadow-2xl hover:shadow-slate-200 hover:-translate-y-2" style="transition-delay: 200ms;">
-                    <div class="aspect-square bg-white rounded-2xl mb-8 flex items-center justify-center border border-slate-100 overflow-hidden">
-                        <div class="w-full h-full bg-gradient-to-br from-purple-50 to-pink-50 group-hover:scale-110 transition-transform duration-700"></div>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold mb-3">FinStream App</h3>
-                    <p class="text-slate-600 mb-6 font-medium">Brand identity and landing page for a modern fintech startup.</p>
-                    <a href="#" class="inline-flex items-center space-x-2 text-blue-600 font-bold group/link">
-                        <span>Learn More</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover/link:translate-x-1 transition-transform"></i>
-                    </a>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- Process / Checkmark List Section -->
-    <section id="process" class="py-24 px-6 bg-slate-50/50">
+    <!-- Stats Section -->
+    <section class="py-24 px-6 md:px-20 bg-brand-card/30 border-y border-white/5">
         <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
                 <div class="reveal">
-                    <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-8 tracking-tight">The Nexus <span class="text-indigo-600">Standard.</span></h2>
-                    <p class="text-slate-600 text-lg mb-10 font-medium leading-relaxed">
-                        We don't settle for "good enough." Every project follows our rigorous 40-point checklist to ensure peak performance and uncompromising quality.
-                    </p>
-
-                    <div class="space-y-6" x-data="{ activeFaq: 1 }">
-                        <!-- Item 1 -->
-                        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-                            <button @click="activeFaq = (activeFaq === 1 ? 0 : 1)" class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
-                                <span class="font-bold text-slate-900">Performance First Architecture</span>
-                                <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-300" :class="activeFaq === 1 ? 'rotate-180' : ''"></i>
-                            </button>
-                            <div x-show="activeFaq === 1" x-collapse class="px-6 pb-5 text-slate-600 font-medium border-t border-slate-50 pt-4">
-                                Every site we build is optimized for Core Web Vitals, ensuring sub-second load times and a perfect PageSpeed score.
-                            </div>
-                        </div>
-
-                        <!-- Item 2 -->
-                        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-                            <button @click="activeFaq = (activeFaq === 2 ? 0 : 2)" class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
-                                <span class="font-bold text-slate-900">Conversion-Centric Design</span>
-                                <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-300" :class="activeFaq === 2 ? 'rotate-180' : ''"></i>
-                            </button>
-                            <div x-show="activeFaq === 2" x-collapse x-cloak class="px-6 pb-5 text-slate-600 font-medium border-t border-slate-50 pt-4">
-                                We use data-backed UI patterns and psychological triggers to guide users towards your primary call to action.
-                            </div>
-                        </div>
-
-                        <!-- Item 3 -->
-                        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-                            <button @click="activeFaq = (activeFaq === 3 ? 0 : 3)" class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
-                                <span class="font-bold text-slate-900">End-to-End Analytics</span>
-                                <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-300" :class="activeFaq === 3 ? 'rotate-180' : ''"></i>
-                            </button>
-                            <div x-show="activeFaq === 3" x-collapse x-cloak class="px-6 pb-5 text-slate-600 font-medium border-t border-slate-50 pt-4">
-                                Full-stack tracking setup including GA4, GTM, and custom event tracking to measure every single touchpoint.
-                            </div>
-                        </div>
-                    </div>
+                    <div class="text-6xl md:text-8xl font-heading font-black text-brand-orange tracking-tighter mb-2">99%</div>
+                    <p class="text-white font-bold uppercase tracking-widest text-sm">System Uptime</p>
                 </div>
-
-                <div class="reveal relative">
-                    <div class="bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-[3rem] p-1 shadow-2xl shadow-blue-200">
-                        <div class="bg-white rounded-[2.8rem] p-10 md:p-16">
-                            <div class="space-y-8">
-                                <div class="flex items-start space-x-5">
-                                    <div class="bg-blue-50 p-2 rounded-xl text-blue-600">
-                                        <i data-lucide="check" class="w-6 h-6"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-xl mb-1">SEO Optimized</h4>
-                                        <p class="text-slate-500">Semantic HTML and schema markup.</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-5">
-                                    <div class="bg-blue-50 p-2 rounded-xl text-blue-600">
-                                        <i data-lucide="check" class="w-6 h-6"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-xl mb-1">Mobile Responsive</h4>
-                                        <p class="text-slate-500">Perfect display on every device.</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-5">
-                                    <div class="bg-blue-50 p-2 rounded-xl text-blue-600">
-                                        <i data-lucide="check" class="w-6 h-6"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-xl mb-1">Secure by Design</h4>
-                                        <p class="text-slate-500">SSL, WAF, and best-in-class security.</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-5">
-                                    <div class="bg-blue-50 p-2 rounded-xl text-blue-600">
-                                        <i data-lucide="check" class="w-6 h-6"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-xl mb-1">Scalable Stack</h4>
-                                        <p class="text-slate-500">Built to handle millions of visitors.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="reveal border-white/10 md:border-l pl-0 md:pl-12" style="transition-delay: 100ms">
+                    <div class="text-6xl md:text-8xl font-heading font-black text-brand-orange tracking-tighter mb-2">5X</div>
+                    <p class="text-white font-bold uppercase tracking-widest text-sm">Average ROI</p>
+                </div>
+                <div class="reveal border-white/10 md:border-l pl-0 md:pl-12" style="transition-delay: 200ms">
+                    <div class="text-6xl md:text-8xl font-heading font-black text-brand-orange tracking-tighter mb-2">24/7</div>
+                    <p class="text-white font-bold uppercase tracking-widest text-sm">Active Monitoring</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Final CTA -->
-    <section id="contact" class="py-24 px-6 relative overflow-hidden">
-        <div class="max-w-5xl mx-auto reveal text-center">
-            <div class="bg-slate-900 rounded-[3.5rem] p-12 md:p-24 relative overflow-hidden">
-                <!-- Background Decorations -->
-                <div class="absolute top-0 right-0 w-96 h-96 bg-blue-600/20 blur-[100px] rounded-full -mr-48 -mt-48"></div>
-                <div class="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600/20 blur-[100px] rounded-full -ml-48 -mb-48"></div>
-
-                <div class="relative z-10">
-                    <h2 class="text-4xl md:text-6xl font-heading font-extrabold mb-8 text-white tracking-tight">Ready to build the <span class="text-blue-400">extraordinary?</span></h2>
-                    <p class="text-slate-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-medium leading-relaxed">
-                        Join the ranks of high-growth companies that trust Nexus Digital for their most critical digital initiatives.
-                    </p>
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                        <a href="mailto:hello@nexusdigital.com" class="w-full sm:w-auto bg-blue-600 text-white px-12 py-5 rounded-full font-bold text-lg transition-all duration-300 hover:bg-blue-700 hover:scale-105 active:scale-95 shadow-xl shadow-blue-900/20">
-                            Book a Strategy Call
-                        </a>
-                        <a href="#" class="w-full sm:w-auto px-12 py-5 rounded-full font-bold text-lg text-white border border-slate-700 hover:bg-slate-800 transition-all duration-300">
-                            View Case Studies
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-16 px-6 bg-white border-t border-slate-100">
+    <!-- Experience Layout -->
+    <section class="py-32 px-6 md:px-20 bg-brand-card/20">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-12 md:space-y-0">
-                <div class="space-y-6">
-                    <a href="#" class="flex items-center space-x-2">
-                        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-md">
-                            <span class="text-white font-bold text-lg font-heading">N</span>
-                        </div>
-                        <span class="text-slate-900 font-heading font-extrabold text-xl tracking-tighter">Nexus Digital</span>
-                    </a>
-                    <p class="text-slate-500 max-w-xs font-medium">Elevating digital standards through precision engineering and strategic marketing.</p>
-                </div>
+            <h2 class="reveal text-4xl md:text-5xl font-heading font-black text-white tracking-tighter mb-20">WHAT WE DO</h2>
 
-                <div class="flex flex-wrap gap-x-16 gap-y-10">
-                    <div class="space-y-4">
-                        <h5 class="font-bold text-slate-900 uppercase text-xs tracking-widest">Connect</h5>
-                        <div class="flex flex-col space-y-3 text-slate-600 font-medium">
-                            <a href="#" class="hover:text-blue-600 transition-colors">Twitter</a>
-                            <a href="#" class="hover:text-blue-600 transition-colors">LinkedIn</a>
-                            <a href="#" class="hover:text-blue-600 transition-colors">Instagram</a>
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <h5 class="font-bold text-slate-900 uppercase text-xs tracking-widest">Company</h5>
-                        <div class="flex flex-col space-y-3 text-slate-600 font-medium">
-                            <a href="#services" class="hover:text-blue-600 transition-colors">Services</a>
-                            <a href="#portfolio" class="hover:text-blue-600 transition-colors">Portfolio</a>
-                            <a href="#process" class="hover:text-blue-600 transition-colors">Process</a>
-                        </div>
-                    </div>
+            <div class="space-y-0">
+                <div class="reveal flex flex-col md:flex-row items-center py-12 border-t border-white/5 group hover:bg-white/[0.02] transition-all px-4">
+                    <span class="text-brand-orange font-bold text-xl mb-4 md:mb-0 md:mr-12">01</span>
+                    <h3 class="text-2xl md:text-4xl font-heading font-black text-white uppercase tracking-tighter flex-grow">Technical Strategy</h3>
+                    <p class="max-w-md text-sm md:text-base">Deep dive into your business goals to engineer the perfect digital roadmap.</p>
                 </div>
-
-                <div class="flex items-center space-x-4">
-                    <a href="#" @click.prevent="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-14 h-14 bg-slate-50 rounded-full flex items-center justify-center border border-slate-200 text-slate-900 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 shadow-sm group">
-                        <i data-lucide="arrow-up" class="w-6 h-6 transition-transform group-hover:-translate-y-1"></i>
-                    </a>
+                <div class="reveal flex flex-col md:flex-row items-center py-12 border-t border-white/5 group hover:bg-white/[0.02] transition-all px-4">
+                    <span class="text-brand-orange font-bold text-xl mb-4 md:mb-0 md:mr-12">02</span>
+                    <h3 class="text-2xl md:text-4xl font-heading font-black text-white uppercase tracking-tighter flex-grow">Premium Development</h3>
+                    <p class="max-w-md text-sm md:text-base">Custom-coded solutions with zero compromises on performance or security.</p>
+                </div>
+                <div class="reveal flex flex-col md:flex-row items-center py-12 border-t border-white/5 group hover:bg-white/[0.02] transition-all px-4 border-b">
+                    <span class="text-brand-orange font-bold text-xl mb-4 md:mb-0 md:mr-12">03</span>
+                    <h3 class="text-2xl md:text-4xl font-heading font-black text-white uppercase tracking-tighter flex-grow">Growth Marketing</h3>
+                    <p class="max-w-md text-sm md:text-base">Accelerating your reach with laser-targeted search marketing campaigns.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="mt-16 pt-8 border-t border-slate-50 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-slate-400 text-sm font-medium">
-                <div>&copy; 2024 Nexus Digital Agency. All rights reserved.</div>
-                <div class="flex space-x-8">
-                    <a href="#" class="hover:text-slate-600 transition-colors">Privacy Policy</a>
-                    <a href="#" class="hover:text-slate-600 transition-colors">Terms of Service</a>
+    <footer id="contact" class="py-32 px-6 md:px-20 bg-brand-card">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl md:text-6xl font-heading font-black text-white tracking-tighter mb-10">READY TO SCALE?</h2>
+            <p class="text-lg mb-12 max-w-xl mx-auto">Limited spots available for Q4. Book your technical audit today.</p>
+            <a href="mailto:hello@nexusdigital.com" class="inline-block bg-brand-orange text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-orange-600 transition-all shadow-2xl shadow-brand-orange/20">Book Ads Audit</a>
+
+            <div class="mt-24 border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center gap-8 text-sm">
+                <div class="text-white font-heading font-black text-xl tracking-tighter">
+                    <span class="text-brand-orange">N</span>EXUS
                 </div>
+                <div class="flex gap-8">
+                    <a href="#" class="hover:text-white transition-colors">Twitter</a>
+                    <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+                    <a href="#" class="hover:text-white transition-colors">Clutch</a>
+                </div>
+                <p>&copy; 2024 Nexus Digital Agency.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.1
-        };
-
+        // Reveal Animation
+        const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -534,8 +214,7 @@
         }, observerOptions);
 
         document.addEventListener('DOMContentLoaded', () => {
-            const reveals = document.querySelectorAll('.reveal');
-            reveals.forEach(el => observer.observe(el));
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         });
     </script>
 </body>
