@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Development | Nexus Digital</title>
+    <title>High-Performance Development | Nexus Digital</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -16,9 +16,8 @@
                 extend: {
                     colors: {
                         brand: {
-                            black: '#0a0a0a',
+                            black: '#050505',
                             orange: '#FF8A00',
-                            card: '#1a1a1a',
                         }
                     },
                     fontFamily: {
@@ -33,174 +32,209 @@
         [x-cloak] { display: none !important; }
         .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .glow-orange {
-            background: radial-gradient(circle, rgba(255, 138, 0, 0.15) 0%, rgba(10, 10, 10, 0) 70%);
+        .glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 138, 0, 0.1) 0%, rgba(5, 5, 5, 0) 70%);
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: 0;
         }
     </style>
 </head>
-<body class="bg-brand-black text-[#94a3b8] font-sans selection:bg-brand-orange selection:text-white">
+<body class="bg-brand-black text-slate-400 font-sans selection:bg-brand-orange selection:text-white">
+
+    <!-- Background Glows -->
+    <div class="glow top-[-100px] right-[-100px]"></div>
+    <div class="glow bottom-[10%] left-[-100px]"></div>
 
     <!-- Navigation -->
     <nav x-data="{ mobileMenu: false, scrolled: false }"
          @scroll.window="scrolled = (window.pageYOffset > 20)"
-         class="fixed w-full z-50 transition-all duration-300 border-b border-white/5"
-         :class="scrolled ? 'bg-brand-black/80 backdrop-blur-md py-4' : 'bg-transparent py-6'">
-        <div class="max-w-7xl mx-auto px-6 md:px-20 flex justify-between items-center">
-            <a href="index.html" class="text-white font-heading font-black text-2xl tracking-tighter flex items-center gap-2">
+         class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-4xl transition-all duration-300">
+        <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-full px-6 py-3 flex justify-between items-center shadow-2xl">
+            <a href="index.html" class="text-white font-heading font-black text-xl tracking-tighter flex items-center gap-1">
                 <span class="text-brand-orange">N</span>EXUS
             </a>
 
             <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center gap-8 font-medium text-sm">
+            <div class="hidden md:flex items-center gap-8 font-medium text-xs uppercase tracking-widest">
                 <a href="index.html" class="hover:text-brand-orange transition-colors">Home</a>
-                <a href="web-development.html" class="text-white hover:text-brand-orange transition-colors">Web Development</a>
+                <a href="web-development.html" class="text-white hover:text-brand-orange transition-colors">Development</a>
                 <a href="google-ads.html" class="hover:text-brand-orange transition-colors">Google Ads</a>
-                <a href="#contact" class="bg-brand-orange text-white px-6 py-2.5 rounded-full font-bold hover:bg-orange-600 transition-all active:scale-95">Start Project</a>
+                <a href="#contact" class="hover:text-brand-orange transition-colors">Contact</a>
             </div>
 
+            <a href="#contact" class="hidden md:block bg-brand-orange text-white px-5 py-2 rounded-full font-bold text-xs uppercase hover:bg-orange-600 transition-all active:scale-95">Start Project</a>
+
             <!-- Mobile Toggle -->
-            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white">
-                <i data-lucide="menu" x-show="!mobileMenu"></i>
-                <i data-lucide="x" x-show="mobileMenu"></i>
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-white p-1">
+                <i data-lucide="menu" x-show="!mobileMenu" class="w-5 h-5"></i>
+                <i data-lucide="x" x-show="mobileMenu" class="w-5 h-5"></i>
             </button>
         </div>
 
         <!-- Mobile Menu -->
-        <div x-show="mobileMenu" x-cloak x-transition class="md:hidden absolute top-full left-0 w-full bg-brand-card border-b border-white/5 p-6 flex flex-col gap-4">
-            <a href="index.html" class="text-white text-lg font-bold">Home</a>
-            <a href="web-development.html" class="text-white text-lg font-bold">Web Development</a>
-            <a href="google-ads.html" class="text-white text-lg font-bold">Google Ads</a>
-            <a href="#contact" class="bg-brand-orange text-white px-6 py-4 rounded-full font-bold text-center">Start Project</a>
+        <div x-show="mobileMenu" x-cloak x-transition
+             class="md:hidden absolute top-full left-0 w-full mt-4 bg-brand-black/95 backdrop-blur-xl border border-white/10 rounded-3xl p-8 flex flex-col gap-6 text-center shadow-2xl">
+            <a @click="mobileMenu = false" href="index.html" class="text-white text-xl font-heading font-extrabold uppercase tracking-tighter">Home</a>
+            <a @click="mobileMenu = false" href="web-development.html" class="text-white text-xl font-heading font-extrabold uppercase tracking-tighter">Development</a>
+            <a @click="mobileMenu = false" href="google-ads.html" class="text-white text-xl font-heading font-extrabold uppercase tracking-tighter">Google Ads</a>
+            <a @click="mobileMenu = false" href="#contact" class="text-white text-xl font-heading font-extrabold uppercase tracking-tighter">Contact</a>
+            <a @click="mobileMenu = false" href="#contact" class="bg-brand-orange text-white py-4 rounded-full font-bold uppercase tracking-widest mt-4">Start Project</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative pt-48 pb-32 px-6 md:px-20 overflow-hidden">
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] glow-orange -mr-64 -mt-64 opacity-50"></div>
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="max-w-3xl">
-                    <h2 class="reveal text-sm font-bold uppercase tracking-[0.3em] text-brand-orange mb-4">Core Service</h2>
-                    <h1 class="reveal text-5xl md:text-7xl font-heading font-black text-white tracking-tighter leading-none mb-8">
-                        High-Performance<br><span class="text-brand-orange">Web Solutions.</span>
-                    </h1>
-                    <p class="reveal text-lg md:text-xl mb-10 leading-relaxed">
-                        We engineer enterprise-grade web applications and high-conversion landing pages that dominate the competition.
-                    </p>
-                    <div class="reveal">
-                        <a href="#contact" class="inline-block bg-brand-orange text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-orange-600 transition-all active:scale-95">Request Technical Proposal</a>
-                    </div>
-                </div>
-                <div class="reveal relative">
-                    <div class="absolute -inset-4 bg-brand-orange/20 blur-3xl rounded-full opacity-20"></div>
-                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200"
-                         alt="Laptop Mockup"
-                         class="relative rounded-2xl border border-white/10 shadow-2xl shadow-brand-orange/10 w-full h-auto object-cover aspect-[4/3]">
-                </div>
+    <header class="relative pt-48 pb-20 px-6 md:px-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <h1 class="reveal text-5xl md:text-8xl font-heading font-black text-white tracking-tighter leading-none mb-8 uppercase">
+                High-Performance<br><span class="text-brand-orange">Development.</span>
+            </h1>
+            <p class="reveal text-lg md:text-xl mb-16 leading-relaxed max-w-2xl mx-auto">
+                We build ultra-fast, secure, and scalable digital infrastructure designed to handle enterprise-level traffic with zero compromises.
+            </p>
+            <div class="reveal relative max-w-5xl mx-auto">
+                <div class="absolute inset-0 bg-brand-orange/20 blur-[120px] rounded-full opacity-30"></div>
+                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&q=80&w=1200"
+                     alt="High-End Laptop"
+                     class="relative w-full h-auto object-contain mix-blend-lighten rounded-2xl border border-white/5">
             </div>
         </div>
     </header>
 
     <!-- Tech Stack Section -->
-    <section class="py-24 px-6 md:px-20 bg-brand-card/30">
+    <section class="py-20 px-6 md:px-20 relative">
         <div class="max-w-7xl mx-auto">
-            <h2 class="reveal text-sm font-bold uppercase tracking-[0.3em] text-brand-orange mb-12">Modern Tech Stack</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
-                <div class="reveal">
-                    <h3 class="text-3xl font-heading font-black text-white mb-6 uppercase tracking-tighter">Engineered for speed</h3>
-                    <p class="text-lg leading-relaxed mb-8">We utilize the latest in frontend technology to ensure your site loads in milliseconds, not seconds. Our architecture is built to handle massive scale while maintaining sub-second response times.</p>
+            <div class="text-center mb-20">
+                <h2 class="reveal text-sm font-bold uppercase tracking-[0.4em] text-brand-orange mb-4">The Stack</h2>
+                <h3 class="reveal text-3xl md:text-5xl font-heading font-black text-white tracking-tighter uppercase">Engineered with the best</h3>
+            </div>
 
-                    <div class="grid grid-cols-5 gap-4 mt-12">
-                        <div class="group relative">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" class="w-12 h-12 grayscale hover:grayscale-0 transition-all duration-300">
-                            <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">HTML5</span>
-                        </div>
-                        <div class="group relative">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" class="w-12 h-12 grayscale hover:grayscale-0 transition-all duration-300">
-                            <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">CSS3</span>
-                        </div>
-                        <div class="group relative">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS" class="w-12 h-12 grayscale hover:grayscale-0 transition-all duration-300">
-                            <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">JS</span>
-                        </div>
-                        <div class="group relative">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind" class="w-12 h-12 grayscale hover:grayscale-0 transition-all duration-300">
-                            <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">Tailwind</span>
-                        </div>
-                        <div class="group relative">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="w-12 h-12 grayscale hover:grayscale-0 transition-all duration-300">
-                            <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">React</span>
-                        </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-12 text-center">
+                <div class="reveal flex flex-col items-center gap-4 group">
+                    <div class="text-brand-orange group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="layers" class="w-12 h-12"></i>
                     </div>
+                    <span class="text-white font-bold uppercase tracking-widest text-xs">HTML5 / CSS3</span>
                 </div>
-                <div class="reveal space-y-8">
-                    <div class="p-8 bg-brand-card rounded-3xl border border-white/5">
-                        <h4 class="text-white font-heading font-black text-xl mb-2 uppercase tracking-tighter">Mobile-First Design</h4>
-                        <p>Responsive architecture that delivers a premium experience on every device, from mobile to ultra-wide displays.</p>
+                <div class="reveal flex flex-col items-center gap-4 group" style="transition-delay: 50ms">
+                    <div class="text-brand-orange group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="wind" class="w-12 h-12"></i>
                     </div>
-                    <div class="p-8 bg-brand-card rounded-3xl border border-white/5">
-                        <h4 class="text-white font-heading font-black text-xl mb-2 uppercase tracking-tighter">SEO Optimized</h4>
-                        <p>Perfectly indexed content and schema markup to ensure your site ranks where it belongs: at the top.</p>
+                    <span class="text-white font-bold uppercase tracking-widest text-xs">Tailwind CSS</span>
+                </div>
+                <div class="reveal flex flex-col items-center gap-4 group" style="transition-delay: 100ms">
+                    <div class="text-brand-orange group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="code" class="w-12 h-12"></i>
                     </div>
+                    <span class="text-white font-bold uppercase tracking-widest text-xs">JavaScript ES6+</span>
+                </div>
+                <div class="reveal flex flex-col items-center gap-4 group" style="transition-delay: 150ms">
+                    <div class="text-brand-orange group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="atom" class="w-12 h-12"></i>
+                    </div>
+                    <span class="text-white font-bold uppercase tracking-widest text-xs">React / Next.js</span>
+                </div>
+                <div class="reveal flex flex-col items-center gap-4 group" style="transition-delay: 200ms">
+                    <div class="text-brand-orange group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="database" class="w-12 h-12"></i>
+                    </div>
+                    <span class="text-white font-bold uppercase tracking-widest text-xs">PostgreSQL</span>
+                </div>
+                <div class="reveal flex flex-col items-center gap-4 group" style="transition-delay: 250ms">
+                    <div class="text-brand-orange group-hover:scale-110 transition-transform duration-300">
+                        <i data-lucide="cloud" class="w-12 h-12"></i>
+                    </div>
+                    <span class="text-white font-bold uppercase tracking-widest text-xs">Vercel / AWS</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Process Section -->
-    <section class="py-32 px-6 md:px-20">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-24">
-                <h2 class="reveal text-4xl md:text-5xl font-heading font-black text-white tracking-tighter uppercase">Our Process</h2>
-                <div class="w-20 h-1 bg-brand-orange mx-auto mt-6"></div>
-            </div>
+    <!-- The Process Section -->
+    <section class="py-20 px-6 md:px-20 bg-brand-black/50 relative">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="reveal text-sm font-bold uppercase tracking-[0.4em] text-brand-orange mb-12 text-center">The Process</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="reveal group bg-brand-card p-8 rounded-3xl border border-white/5 hover:border-brand-orange/30 transition-all duration-500">
-                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&q=80&w=200" alt="Discovery" class="w-16 h-16 rounded-xl object-cover mb-6 border border-white/10 shadow-lg">
-                    <div class="text-5xl font-heading font-black text-white/10 group-hover:text-brand-orange/20 transition-colors mb-4">01</div>
-                    <h3 class="text-xl font-heading font-black text-white mb-4 uppercase tracking-tighter">Discovery</h3>
-                    <p class="text-sm">In-depth analysis of your business goals and technical requirements.</p>
+            <div class="space-y-0 relative before:absolute before:left-[1.75rem] md:before:left-1/2 before:top-0 before:h-full before:w-px before:bg-brand-orange/20">
+                <!-- Step 1 -->
+                <div class="reveal relative flex flex-col md:flex-row items-center md:justify-between pb-16">
+                    <div class="hidden md:block w-5/12"></div>
+                    <div class="absolute left-0 md:left-1/2 -translate-x-1/2 w-14 h-14 bg-brand-black border border-brand-orange/40 rounded-full flex items-center justify-center z-10">
+                        <i data-lucide="search" class="text-brand-orange w-6 h-6"></i>
+                    </div>
+                    <div class="pl-20 md:pl-0 md:w-5/12 text-left">
+                        <h4 class="text-white font-heading font-black text-2xl uppercase tracking-tighter mb-2">1. Strategy</h4>
+                        <p class="text-sm leading-relaxed">Deep-dive technical discovery to align your infrastructure with your business objectives.</p>
+                    </div>
                 </div>
-                <div class="reveal group bg-brand-card p-8 rounded-3xl border border-white/5 hover:border-brand-orange/30 transition-all duration-500" style="transition-delay: 100ms">
-                    <img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?auto=format&fit=crop&q=80&w=200" alt="Design" class="w-16 h-16 rounded-xl object-cover mb-6 border border-white/10 shadow-lg">
-                    <div class="text-5xl font-heading font-black text-white/10 group-hover:text-brand-orange/20 transition-colors mb-4">02</div>
-                    <h3 class="text-xl font-heading font-black text-white mb-4 uppercase tracking-tighter">Design</h3>
-                    <p class="text-sm">High-fidelity UI/UX design focused on conversion and brand authority.</p>
+
+                <!-- Step 2 -->
+                <div class="reveal relative flex flex-col md:flex-row items-center md:justify-between pb-16" style="transition-delay: 100ms">
+                    <div class="pl-20 md:pl-0 md:w-5/12 md:text-right order-2 md:order-1">
+                        <h4 class="text-white font-heading font-black text-2xl uppercase tracking-tighter mb-2">2. Design</h4>
+                        <p class="text-sm leading-relaxed">High-fidelity interface design centered around conversion optimization and user experience.</p>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 -translate-x-1/2 w-14 h-14 bg-brand-black border border-brand-orange/40 rounded-full flex items-center justify-center z-10 order-1 md:order-2">
+                        <i data-lucide="palette" class="text-brand-orange w-6 h-6"></i>
+                    </div>
+                    <div class="hidden md:block w-5/12 order-3"></div>
                 </div>
-                <div class="reveal group bg-brand-card p-8 rounded-3xl border border-white/5 hover:border-brand-orange/30 transition-all duration-500" style="transition-delay: 200ms">
-                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=200" alt="Build" class="w-16 h-16 rounded-xl object-cover mb-6 border border-white/10 shadow-lg">
-                    <div class="text-5xl font-heading font-black text-white/10 group-hover:text-brand-orange/20 transition-colors mb-4">03</div>
-                    <h3 class="text-xl font-heading font-black text-white mb-4 uppercase tracking-tighter">Build</h3>
-                    <p class="text-sm">Clean, scalable code developed by our senior engineering team.</p>
+
+                <!-- Step 3 -->
+                <div class="reveal relative flex flex-col md:flex-row items-center md:justify-between pb-16" style="transition-delay: 200ms">
+                    <div class="hidden md:block w-5/12"></div>
+                    <div class="absolute left-0 md:left-1/2 -translate-x-1/2 w-14 h-14 bg-brand-black border border-brand-orange/40 rounded-full flex items-center justify-center z-10">
+                        <i data-lucide="cpu" class="text-brand-orange w-6 h-6"></i>
+                    </div>
+                    <div class="pl-20 md:pl-0 md:w-5/12 text-left">
+                        <h4 class="text-white font-heading font-black text-2xl uppercase tracking-tighter mb-2">3. Code</h4>
+                        <p class="text-sm leading-relaxed">Clean, modular engineering using modern frameworks for maximum performance and security.</p>
+                    </div>
                 </div>
-                <div class="reveal group bg-brand-card p-8 rounded-3xl border border-white/5 hover:border-brand-orange/30 transition-all duration-500" style="transition-delay: 300ms">
-                    <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=200" alt="Launch" class="w-16 h-16 rounded-xl object-cover mb-6 border border-white/10 shadow-lg">
-                    <div class="text-5xl font-heading font-black text-white/10 group-hover:text-brand-orange/20 transition-colors mb-4">04</div>
-                    <h3 class="text-xl font-heading font-black text-white mb-4 uppercase tracking-tighter">Launch</h3>
-                    <p class="text-sm">Rigorous testing and deployment with post-launch optimization.</p>
+
+                <!-- Step 4 -->
+                <div class="reveal relative flex flex-col md:flex-row items-center md:justify-between pb-0" style="transition-delay: 300ms">
+                    <div class="pl-20 md:pl-0 md:w-5/12 md:text-right order-2 md:order-1">
+                        <h4 class="text-white font-heading font-black text-2xl uppercase tracking-tighter mb-2">4. Launch</h4>
+                        <p class="text-sm leading-relaxed">Rigorous testing, deployment, and performance monitoring to ensure a flawless release.</p>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 -translate-x-1/2 w-14 h-14 bg-brand-black border border-brand-orange/40 rounded-full flex items-center justify-center z-10 order-1 md:order-2">
+                        <i data-lucide="rocket" class="text-brand-orange w-6 h-6"></i>
+                    </div>
+                    <div class="hidden md:block w-5/12 order-3"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer id="contact" class="py-32 px-6 md:px-20 bg-brand-card">
-        <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-4xl md:text-6xl font-heading font-black text-white tracking-tighter mb-10 text-center uppercase">Ready to scale?</h2>
-            <p class="text-lg mb-12 max-w-xl mx-auto">Limited spots available for Q4. Book your technical audit today.</p>
-            <a href="mailto:hello@nexusdigital.com" class="inline-block bg-brand-orange text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-orange-600 transition-all shadow-2xl shadow-brand-orange/20">Request Technical Proposal</a>
-
-            <div class="mt-24 border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center gap-8 text-sm">
-                <div class="text-white font-heading font-black text-xl tracking-tighter">
-                    <span class="text-brand-orange">N</span>EXUS
-                </div>
-                <div class="flex gap-8">
-                    <a href="#" class="hover:text-white transition-colors">Twitter</a>
-                    <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
-                    <a href="#" class="hover:text-white transition-colors">Clutch</a>
-                </div>
-                <p>&copy; 2024 Nexus Digital Agency.</p>
+    <!-- CTA Section -->
+    <section class="py-32 px-6 md:px-20 text-center">
+        <div class="max-w-4xl mx-auto relative group">
+            <div class="absolute inset-0 bg-brand-orange blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity"></div>
+            <div class="relative z-10">
+                <h2 class="reveal text-4xl md:text-6xl font-heading font-black text-white tracking-tighter mb-12 uppercase">Ready for a Technical Upgrade?</h2>
+                <a href="#contact" class="reveal inline-block bg-brand-orange text-white px-12 py-6 rounded-full font-bold text-xl uppercase hover:bg-orange-600 transition-all shadow-2xl shadow-brand-orange/40 active:scale-95">Get a Technical Proposal</a>
             </div>
+        </div>
+    </section>
+
+    <!-- Minimalist Footer -->
+    <footer id="contact" class="py-24 px-6 md:px-20 bg-brand-black border-t border-white/5">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-white font-heading font-black text-xl tracking-tighter">
+                <span class="text-brand-orange">N</span>EXUS
+            </div>
+
+            <div class="flex gap-10">
+                <a href="#" class="text-slate-500 hover:text-brand-orange transition-colors uppercase tracking-widest text-xs font-bold">Twitter</a>
+                <a href="#" class="text-slate-500 hover:text-brand-orange transition-colors uppercase tracking-widest text-xs font-bold">LinkedIn</a>
+                <a href="#" class="text-slate-500 hover:text-brand-orange transition-colors uppercase tracking-widest text-xs font-bold">Instagram</a>
+            </div>
+
+            <p class="text-slate-600 text-[10px] uppercase tracking-widest">&copy; 2024 Nexus Digital Agency.</p>
         </div>
     </footer>
 
