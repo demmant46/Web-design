@@ -16,9 +16,8 @@
                 extend: {
                     colors: {
                         brand: {
-                            black: '#0a0a0a',
+                            black: '#050505',
                             orange: '#FF8A00',
-                            card: '#1a1a1a',
                         }
                     },
                     fontFamily: {
@@ -34,28 +33,34 @@
         .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .glow-orange {
-            background: radial-gradient(circle, rgba(255, 138, 0, 0.15) 0%, rgba(10, 10, 10, 0) 70%);
+            background: radial-gradient(circle, rgba(255, 138, 0, 0.1) 0%, rgba(5, 5, 5, 0) 70%);
         }
     </style>
 </head>
-<body class="bg-brand-black text-[#94a3b8] font-sans selection:bg-brand-orange selection:text-white">
+<body class="bg-brand-black text-slate-400 font-sans selection:bg-brand-orange selection:text-white overflow-x-hidden">
+
+    <!-- Floating Background Glows -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] glow-orange blur-3xl opacity-20"></div>
+        <div class="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] glow-orange blur-3xl opacity-10"></div>
+    </div>
 
     <!-- Navigation -->
     <nav x-data="{ mobileMenu: false, scrolled: false }"
          @scroll.window="scrolled = (window.pageYOffset > 20)"
-         class="fixed w-full z-50 transition-all duration-300 border-b border-white/5"
-         :class="scrolled ? 'bg-brand-black/80 backdrop-blur-md py-4' : 'bg-transparent py-6'">
-        <div class="max-w-7xl mx-auto px-6 md:px-20 flex justify-between items-center">
-            <a href="index.html" class="text-white font-heading font-black text-2xl tracking-tighter flex items-center gap-2">
+         class="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl z-50 transition-all duration-500 rounded-full border border-white/10"
+         :class="scrolled ? 'bg-black/60 backdrop-blur-xl py-3 shadow-2xl' : 'bg-transparent py-5'">
+        <div class="px-8 flex justify-between items-center">
+            <a href="index.html" class="text-white font-heading font-black text-xl tracking-tighter flex items-center gap-2">
                 <span class="text-brand-orange">N</span>EXUS
             </a>
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center gap-8 font-medium text-sm">
-                <a href="index.html" class="hover:text-brand-orange transition-colors">Home</a>
-                <a href="web-development.html" class="hover:text-brand-orange transition-colors">Web Development</a>
-                <a href="google-ads.html" class="text-white hover:text-brand-orange transition-colors">Google Ads</a>
-                <a href="#contact" class="bg-brand-orange text-white px-6 py-2.5 rounded-full font-bold hover:bg-orange-600 transition-all active:scale-95">Start Project</a>
+                <a href="index.html" class="text-white/70 hover:text-brand-orange transition-colors">Home</a>
+                <a href="web-development.html" class="text-white/70 hover:text-brand-orange transition-colors">Development</a>
+                <a href="google-ads.html" class="text-brand-orange">Google Ads</a>
+                <a href="index.html#contact" class="bg-white text-black px-6 py-2 rounded-full font-bold hover:bg-brand-orange hover:text-white transition-all active:scale-95">Start Project</a>
             </div>
 
             <!-- Mobile Toggle -->
@@ -66,130 +71,128 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div x-show="mobileMenu" x-cloak x-transition class="md:hidden absolute top-full left-0 w-full bg-brand-card border-b border-white/5 p-6 flex flex-col gap-4">
+        <div x-show="mobileMenu" x-cloak x-transition
+             class="md:hidden absolute top-full mt-4 left-0 w-full bg-black/95 backdrop-blur-2xl rounded-3xl border border-white/10 p-8 flex flex-col gap-6 shadow-2xl">
             <a href="index.html" class="text-white text-lg font-bold">Home</a>
-            <a href="web-development.html" class="text-white text-lg font-bold">Web Development</a>
-            <a href="google-ads.html" class="text-white text-lg font-bold">Google Ads</a>
-            <a href="#contact" class="bg-brand-orange text-white px-6 py-4 rounded-full font-bold text-center">Start Project</a>
+            <a href="web-development.html" class="text-white text-lg font-bold">Development</a>
+            <a href="google-ads.html" class="text-brand-orange text-lg font-bold">Google Ads</a>
+            <a href="index.html#contact" class="bg-brand-orange text-white px-6 py-4 rounded-full font-bold text-center">Start Project</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative pt-48 pb-32 px-6 md:px-20 overflow-hidden">
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] glow-orange -mr-64 -mt-64 opacity-50"></div>
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="max-w-3xl">
-                    <h2 class="reveal text-sm font-bold uppercase tracking-[0.3em] text-brand-orange mb-4">Paid Search Management</h2>
-                    <h1 class="reveal text-5xl md:text-7xl font-heading font-black text-white tracking-tighter leading-none mb-8 uppercase">
-                        Precision<br><span class="text-brand-orange">Google Ads.</span>
+    <header class="relative pt-48 pb-32 px-6 md:px-20 min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto w-full relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div>
+                    <h2 class="reveal text-brand-orange font-bold uppercase tracking-[0.4em] text-sm mb-6">Paid Acquisition</h2>
+                    <h1 class="reveal text-5xl md:text-8xl font-heading font-black text-white tracking-tighter leading-[0.9] mb-8 uppercase">
+                        Precision<br><span class="text-brand-orange">Google Ads</span><br>Management.
                     </h1>
-                    <p class="reveal text-lg md:text-xl mb-10 leading-relaxed">
-                        We manage millions in ad spend with a single focus: maximizing your Return on Ad Spend (ROAS) through ruthless data optimization.
+                    <p class="reveal text-xl md:text-2xl text-slate-300 mb-10 leading-relaxed max-w-xl">
+                        Stop spending, start investing. We build high-intent funnels that turn clicks into customers.
                     </p>
                     <div class="reveal">
-                        <a href="#contact" class="inline-block bg-brand-orange text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-orange-600 transition-all active:scale-95">Book an Ads Audit</a>
+                        <a href="#audit" class="inline-block bg-brand-orange text-white px-10 py-5 rounded-full font-black text-lg hover:scale-105 transition-all shadow-2xl shadow-brand-orange/20 active:scale-95">BOOK AN ADS AUDIT</a>
                     </div>
                 </div>
                 <div class="reveal relative">
-                    <div class="absolute -inset-4 bg-brand-orange/20 blur-3xl rounded-full opacity-20"></div>
+                    <div class="absolute inset-0 bg-brand-orange/20 blur-[120px] rounded-full opacity-30"></div>
+                    <!-- Growth Chart Placeholder -->
                     <img src="https://images.unsplash.com/photo-1551288049-bbda48658a7e?auto=format&fit=crop&q=80&w=1200"
-                         alt="Data Dashboard"
-                         class="relative rounded-2xl border border-white/10 shadow-2xl shadow-brand-orange/10 w-full h-auto object-cover aspect-video">
+                         alt="Growth Analytics"
+                         class="relative rounded-2xl border border-white/10 shadow-2xl opacity-90 w-full h-auto object-cover aspect-video">
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Features Section -->
-    <section class="py-32 px-6 md:px-20 bg-brand-card/30 border-y border-white/5">
+    <!-- Strategy Section -->
+    <section class="py-32 px-6 md:px-20 relative">
         <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="reveal p-10 bg-brand-card rounded-3xl border border-white/5">
-                    <div class="w-12 h-12 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-6">
-                        <i data-lucide="target" class="text-brand-orange w-6 h-6"></i>
+            <div class="text-center mb-24">
+                <h2 class="reveal text-4xl md:text-6xl font-heading font-black text-white tracking-tighter uppercase mb-6">Built for <span class="text-brand-orange">ROI</span></h2>
+                <p class="reveal text-lg max-w-2xl mx-auto">Our methodology focuses on the metrics that actually matter: sales and revenue.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+                <!-- Column 1 -->
+                <div class="reveal flex flex-col items-center text-center">
+                    <div class="mb-8 text-brand-orange">
+                        <i data-lucide="search" class="w-16 h-16"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-black text-white mb-4 uppercase tracking-tighter">Conversion Tracking</h3>
-                    <p>Granular tracking setup to ensure every cent of your budget is accounted for and optimized.</p>
+                    <h3 class="text-2xl font-heading font-black text-white mb-4 uppercase tracking-tight">Keyword Research</h3>
+                    <p class="text-slate-400 leading-relaxed">Identifying high-intent, low-waste search terms that put your brand in front of ready-to-buy customers.</p>
                 </div>
-                <div class="reveal p-10 bg-brand-card rounded-3xl border border-white/5" style="transition-delay: 100ms">
-                    <div class="w-12 h-12 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-6">
-                        <i data-lucide="search" class="text-brand-orange w-6 h-6"></i>
+
+                <!-- Column 2 -->
+                <div class="reveal flex flex-col items-center text-center" style="transition-delay: 100ms">
+                    <div class="mb-8 text-brand-orange">
+                        <i data-lucide="target" class="w-16 h-16"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-black text-white mb-4 uppercase tracking-tighter">Keyword Strategy</h3>
-                    <p>Competitive keyword research and intent-based targeting to capture high-value traffic.</p>
+                    <h3 class="text-2xl font-heading font-black text-white mb-4 uppercase tracking-tight">Conversion Tracking</h3>
+                    <p class="text-slate-400 leading-relaxed">Advanced GTM and server-side tracking to ensure every dollar of ad spend is correctly attributed.</p>
                 </div>
-                <div class="reveal p-10 bg-brand-card rounded-3xl border border-white/5" style="transition-delay: 200ms">
-                    <div class="w-12 h-12 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-6">
-                        <i data-lucide="bar-chart-3" class="text-brand-orange w-6 h-6"></i>
+
+                <!-- Column 3 -->
+                <div class="reveal flex flex-col items-center text-center" style="transition-delay: 200ms">
+                    <div class="mb-8 text-brand-orange">
+                        <i data-lucide="git-branch" class="w-16 h-16"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-black text-white mb-4 uppercase tracking-tighter">ROI Optimization</h3>
-                    <p>Continuous A/B testing and bid management to scale your winning campaigns.</p>
+                    <h3 class="text-2xl font-heading font-black text-white mb-4 uppercase tracking-tight">A/B Testing</h3>
+                    <p class="text-slate-400 leading-relaxed">Continuous testing of ad copy, extensions, and landing pages to ruthlessly drive down your CPA.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Synergy Section -->
-    <section class="py-32 px-6 md:px-20 overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row items-center gap-16">
-                <div class="reveal md:w-1/2">
-                    <h2 class="text-4xl md:text-5xl font-heading font-black text-white tracking-tighter mb-8 uppercase">Nexus <span class="text-brand-orange">Optimization.</span></h2>
-                    <p class="text-lg leading-relaxed mb-6">Great ads fail without great landing pages. Our unique approach integrates custom-built, high-conversion landing pages with your Google Ads strategy.</p>
-                    <p class="text-lg leading-relaxed">By reducing friction and increasing relevance, we significantly lower your Cost Per Acquisition (CPA) and boost your Quality Score.</p>
-                </div>
-                <div class="reveal md:w-1/2 relative">
-                    <div class="absolute inset-0 glow-orange blur-[100px] -z-10"></div>
-                    <div class="bg-brand-card p-4 rounded-[2.5rem] border border-brand-orange/20 overflow-hidden">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="space-y-4">
-                                <p class="text-xs font-bold uppercase tracking-widest text-center">Before</p>
-                                <img src="https://images.unsplash.com/photo-1551288049-bbda48658a7e?auto=format&fit=crop&q=80&w=400&h=500" alt="Before Optimization" class="rounded-2xl border border-white/5 grayscale opacity-50 w-full h-48 object-cover">
-                                <div class="bg-white/5 p-4 rounded-xl text-center">
-                                    <span class="text-slate-500 line-through">$45.00 CPA</span>
-                                </div>
-                            </div>
-                            <div class="space-y-4">
-                                <p class="text-xs font-bold uppercase tracking-widest text-center text-brand-orange">After</p>
-                                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=400&h=500" alt="After Optimization" class="rounded-2xl border border-brand-orange/30 w-full h-48 object-cover shadow-lg shadow-brand-orange/10">
-                                <div class="bg-brand-orange/20 p-4 rounded-xl text-center">
-                                    <span class="text-brand-orange font-black">$12.50 CPA</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <section class="py-32 px-6 md:px-20 border-y border-orange-500/10">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="reveal text-4xl md:text-6xl font-heading font-black text-white tracking-tighter uppercase mb-12">The <span class="text-brand-orange">Synergy</span> Effect</h2>
+            <div class="reveal space-y-8 text-xl md:text-2xl leading-relaxed text-slate-300">
+                <p>
+                    Most agencies stop at the click. We don't. Great Google Ads campaigns fail when they point to mediocre landing pages.
+                </p>
+                <p>
+                    Our custom-engineered landing pages are designed to perfectly mirror ad intent, increasing your <span class="text-brand-orange font-bold italic">Quality Score</span> and lowering your cost-per-click automatically.
+                </p>
+                <p>
+                    When your development and your advertising work in unison, you don't just get more traffic—you get more profit.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section id="contact" class="relative py-32 px-6 md:px-20 overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1600" alt="CTA Background" class="w-full h-full object-cover opacity-20 grayscale">
-            <div class="absolute inset-0 bg-brand-black/80"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto text-center relative z-10">
-            <h2 class="reveal text-4xl md:text-6xl font-heading font-black text-white tracking-tighter mb-10 text-center uppercase">READY TO SCALE?</h2>
-            <p class="reveal text-lg mb-12 max-w-xl mx-auto">Limited spots available for Q4. Book your technical audit today.</p>
-            <a href="mailto:hello@nexusdigital.com" class="reveal inline-block bg-brand-orange text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-orange-600 transition-all shadow-2xl shadow-brand-orange/20 active:scale-95">Book Ads Audit</a>
+    <!-- Final CTA Section -->
+    <section id="audit" class="py-40 px-6 md:px-20 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="reveal text-5xl md:text-8xl font-heading font-black text-white tracking-tighter uppercase mb-12 leading-none">
+                Scale Your <span class="text-brand-orange">Revenue</span> Today.
+            </h2>
+            <p class="reveal text-xl mb-16 text-slate-400">Request a free technical audit of your existing Google Ads account.</p>
+            <div class="reveal">
+                <a href="mailto:hello@nexusdigital.com" class="group relative inline-flex items-center gap-4 bg-brand-orange text-white px-12 py-6 rounded-full font-black text-2xl hover:scale-105 transition-all shadow-[0_0_50px_rgba(255,138,0,0.3)] active:scale-95">
+                    BOOK AN ADS AUDIT
+                    <i data-lucide="arrow-right" class="group-hover:translate-x-2 transition-transform"></i>
+                </a>
+            </div>
         </div>
     </section>
 
-    <footer class="py-12 px-6 md:px-20 bg-brand-card border-t border-white/5">
+    <!-- Minimalist Footer -->
+    <footer class="py-12 px-6 md:px-20 bg-brand-black border-t border-white/5">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-sm text-[#94a3b8]">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
                 <div class="text-white font-heading font-black text-xl tracking-tighter">
                     <span class="text-brand-orange">N</span>EXUS
                 </div>
-                <div class="flex gap-8">
-                    <a href="#" class="hover:text-white transition-colors">Twitter</a>
-                    <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
-                    <a href="#" class="hover:text-white transition-colors">Clutch</a>
+                <div class="flex gap-8 text-sm font-bold uppercase tracking-widest">
+                    <a href="#" class="hover:text-brand-orange transition-colors">Twitter</a>
+                    <a href="#" class="hover:text-brand-orange transition-colors">LinkedIn</a>
+                    <a href="#" class="hover:text-brand-orange transition-colors">Instagram</a>
                 </div>
-                <p>&copy; 2024 Nexus Digital Agency.</p>
+                <p class="text-xs text-slate-600">© 2024 Nexus Digital Agency.</p>
             </div>
         </div>
     </footer>
